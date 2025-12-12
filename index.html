@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SIP-BMN Politeknik ATI Padang</title>
+    <!-- Storage Shim: Prevents SecurityError in restricted iframes/browsers -->
+    <script>
+      (function() {
+        var storageAvailable = false;
+        try {
+          var x = '__storage_test__';
+          window.localStorage.setItem(x, x);
+          window.localStorage.removeItem(x);
+          storageAvailable = true;
+        } catch (e) {
+          // Ignore
+        }
+
+        if (!storageAvailable) {
+          console.warn('Storage access blocked. Using in-memory shim.');
+          var mockStorage = {
+            _data: {},
+            getItem: function(k) { return this._data.hasOwnProperty(k) ? this._data[k] : null; },
+            setItem: function(k, v) { this._data[k] = String(v); },
+            removeItem: function(k) { delete this._data[k]; },
+            clear: function() { this._data = {}; },
+            key: function(i) { return Object.keys(this._data)[i] || null; },
+            get length() { return Object.keys(this._data).length; }
+          };
+          
+          var patch = function(prop) {
+            try {
+              Object.defineProperty(window, prop, { value: mockStorage, configurable: true, writable: true });
+            } catch (e) {
+              try { window[prop] = mockStorage; } catch (e2) {}
+            }
+          };
+
+          patch('localStorage');
+          patch('sessionStorage');
+        }
+      })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              ati: {
+                50: '#eef8ff',
+                100: '#d9efff',
+                500: '#3b82f6', // Primary Blue
+                600: '#2563eb',
+                800: '#1e40af',
+                900: '#1e3a8a', // Deep Blue
+              }
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "recharts": "https://aistudiocdn.com/recharts@^3.5.1",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.10.1",
+    "react-dom/client": "https://aistudiocdn.com/react-dom@^19.2.1/client",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.1",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
+    "react-qr-code": "https://aistudiocdn.com/react-qr-code@^2.0.12",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.1/",
+    "react/": "https://esm.sh/react@^19.2.1/"
+  }
+}
+</script>
+</head>
+  <body class="bg-slate-50 text-slate-900 antialiased">
+    <div id="root"></div>
+  </body>
+</html>
